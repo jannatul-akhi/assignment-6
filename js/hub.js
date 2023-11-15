@@ -1,20 +1,33 @@
-const loadData = async() => {
+const loadData = async(dataLimit) => {
     const url = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(url);
     const data = await res.json();
-    displayData(data.data.tools);
+    displayData(data.data.tools, dataLimit);
 }
 
-const displayData = hubs =>{
+const displayData = (hubs, dataLimit)=>{
     // console.log(hubs);
     const container = document.getElementById('container');
+    toggleSpinner(true);
+    container.innerHTML = '';
+    
+
+    const showAll = document.getElementById('see-more');
+    if(dataLimit && hubs.length > 8){
+        hubs = hubs.slice(0,6);
+        showAll.classList.remove('d-none');
+    }
+    else{
+        showAll.classList.add('d-none');
+    }
+
     hubs.forEach(hub => {
-        console.log(hub.published_in);
+        console.log(hub);
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
         <div class="card text-start p-4">
-            <img src="${hub.image}" class="card-img-top" alt="...">
+            <img src="${hub.image ? hub.image : "https://picsum.photos/500/300?random=3"}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title fw-bold">Features</h5>
                 <ol class="card-text">
@@ -37,7 +50,26 @@ const displayData = hubs =>{
         `;
         container.appendChild(div);
     });
+    toggleSpinner(false);
 }
 
+const dataLoading = (dataLimit) =>{
+    toggleSpinner(true);
+    loadData(dataLimit);
+}
 
-loadData();
+const toggleSpinner = (isLoading) =>{
+    const loader = document.getElementById('loader');
+    if(isLoading){
+        loader.classList.remove('d-none');
+    }
+    else{
+        loader.classList.add('d-none');
+    }
+}
+
+document.getElementById('btn-see-more').addEventListener('click', function(){
+    dataLoading();
+})
+
+loadData(6);
