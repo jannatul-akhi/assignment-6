@@ -22,12 +22,12 @@ const displayData = (hubs, dataLimit)=>{
     }
 
     hubs.forEach(hub => {
-        console.log(hub);
+        // console.log(hub);
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
         <div class="card text-start p-4">
-            <img src="${hub.image ? hub.image : "https://picsum.photos/500/300?random=3"}" class="card-img-top" alt="...">
+            <img src="${hub.image ? hub.image : "https://random.imagecdn.app/500/150"}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title fw-bold">Features</h5>
                 <ol class="card-text">
@@ -43,7 +43,8 @@ const displayData = (hubs, dataLimit)=>{
                     <p class="card-text"><i class="fa-solid fa-calendar-days" style="color: #969292;"></i> ${hub.published_in}</p>
                 </div>
                 <div>
-                <button style="background-color: cornsilk;" class="py-3 px-4 border-0 rounded-5"><i class="fa-solid fa-arrow-right" style="color: #f57070;"></i></button>
+                <button onclick="loadHubDetails(${hub.id})" style="background-color: cornsilk;" class="py-3 px-4 border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#hubModal"><i class="fa-solid fa-arrow-right" style="color: #f57070;"></i></button>
+                
                 </div>
             </div>
         </div>
@@ -71,5 +72,19 @@ const toggleSpinner = (isLoading) =>{
 document.getElementById('btn-see-more').addEventListener('click', function(){
     dataLoading();
 })
+
+const loadHubDetails = async(id) => {
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayHubDetails(data);
+}
+
+const displayHubDetails = data => {
+    console.log(data);
+}
+
+
+
 
 loadData(6);
