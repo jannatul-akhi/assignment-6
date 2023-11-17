@@ -43,7 +43,7 @@ const displayData = (hubs, dataLimit)=>{
                     <p class="card-text"><i class="fa-solid fa-calendar-days" style="color: #969292;"></i> ${hub.published_in}</p>
                 </div>
                 <div>
-                <button onclick="loadHubDetails(${hub.id})" style="background-color: cornsilk;" class="py-3 px-4 border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#hubModal"><i class="fa-solid fa-arrow-right" style="color: #f57070;"></i></button>
+                <button onclick="loadHubDetails('${hub.id}')" style="background-color: cornsilk;" class="py-3 px-4 border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#hubModal"><i class="fa-solid fa-arrow-right" style="color: #f57070;"></i></button>
                 
                 </div>
             </div>
@@ -77,11 +77,41 @@ const loadHubDetails = async(id) => {
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
     const res = await fetch(url);
     const data = await res.json();
-    displayHubDetails(data);
+    displayHubDetails(data.data);
 }
 
 const displayHubDetails = data => {
-    console.log(data);
+    console.log(data.integrations[0]);
+    const leftModal = document.getElementById('left-modal');
+    leftModal.innerHTML=`
+    <h5 style="color: black;" class="text-start fw-bold p-4">${data.description}</h5>
+    <div class="d-flex justify-content-evenly my-4 ">
+        <div style="color: green;" class="px-3 pt-4 bg-white rounded-3 fw-semibold w-25">${data.pricing[0].price ? data.pricing[0].price: 'Free of cost'}<br>/Basic</div>
+        <div style="color: orange;" class="px-3 pt-4 bg-white rounded-3 fw-semibold w-25">${data.pricing[1].price ? data.pricing[1].price: 'Free of cost'}<br>/Pro</div>
+        <div style="color: red;" class="px-3 pt-4 bg-white rounded-3 fw-semibold w-25">${data.pricing[2].price ? data.pricing[2].price: 'Free of cost'}<br>/Enterprise</div>
+    </div>
+
+    <div style="color: black;" class="d-flex text-start gap-2">
+        <div class="w-50 pb-5 ps-5 pe-2">
+            <h4 class="fw-bold">Features</h4>
+            <ul>
+                <li>${data.features['1'].feature_name}</li>
+                <li>${data.features['2'].feature_name}</li>
+                <li>${data.features['3'].feature_name}</li>
+            </ul>
+        </div>
+        <div class="w-50 pb-5 ps-2 pe-5">
+            <h4 class="fw-bold">Integrations</h4>
+            <ul>
+                <li>${data.integrations[0]}</li>
+                <li>${data.integrations[1]}</li>
+                <li>${data.integrations[2]}</li>
+            </ul>
+        </div>
+    </div>
+    `;
+
+    
 }
 
 
