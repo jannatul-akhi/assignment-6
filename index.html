@@ -13,13 +13,13 @@
 <body>
     <h1 class="text-center my-4">AI Universe Hub</h1>
     <main class="text-center">
-        <button style="background-color: tomato; color: white;" class="p-3 rounded-3 border border-0 fw-bold mb-4">Sort
+        <button id="sort-date" style="background-color: tomato; color: white;" class="p-3 rounded-3 border border-0 fw-bold mb-4">Sort
             By Date</button>
 
         <section>
 
             <!-- card show  -->
-            <div id="container" style="width: 1500px;" class="row row-cols-1 row-cols-md-3 g-4 mx-auto">
+            <div id="container" style="width: 1500px;" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mx-auto">
 
 
             </div>
@@ -42,10 +42,10 @@
         <section id="container" class="container mt-5 p-5">
             <!-- modal show  -->
             <!-- Button trigger modal -->
-            
+
 
             <!-- Modal -->
-            <div class="modal fade modal-xl mt-5" id="hubModal" tabindex="-1" aria-labelledby="hubModalLabel"
+            <div class="modal fade modal-xl mt-5 row row-cols-1 row-cols-md-2 row-cols-lg-3" id="hubModal" tabindex="-1" aria-labelledby="hubModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div id="" class="modal-content">
@@ -53,19 +53,18 @@
                             <!-- <h1 class="modal-title fs-5" id="hubModalLabel">Modal title</h1> -->
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body d-flex gap-4">
-                            <div id="left-modal" style="background-color: cornsilk ; color: green;" class="border w-50 my-5 ms-5 rounded-4">
-                                
+                        <div class="modal-body d-lg-flex gap-4">
+                            <div id="left-modal" style="background-color: cornsilk ; color: green;"
+                                class="border w-full w-lg-50 my-5 ms-5 rounded-4">
 
-                                
+
+
                             </div>
-                            <div class="border w-50">
-                                <img src="" alt="">
-                                <h3>text</h3>
-                                <p>fedbfefnejkfnekfnef</p>
+                            <div id="right-modal" class="border w-full w-lg-50 my-5 rounded-4 p-5">
+                                
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
